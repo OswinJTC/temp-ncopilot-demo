@@ -1,0 +1,15 @@
+export GOOGLE_APPLICATION_CREDENTIALS="$HOME/Desktop/Jubo 智齡科技/key/sa-oswinchen.json"
+echo $GOOGLE_APPLICATION_CREDENTIALS
+uvicorn app.main:app --reload
+
+
+export PYTHONPATH=$(pwd)
+pytest -o log_cli=true --log-cli-level=INFO -s --cov=app test/
+
+
+
+64773ea71f62fa00270a50ed 憨斑斑
+
+
+
+
