@@ -1,49 +1,64 @@
 # NIS LLM Data Interface
 
 ## Overview
-This repository contains a FastAPI application that serves as a data interface for querying vital signs and other related data. The application provides endpoints for executing complex queries and listing vital signs for a specified patient.
+A FastAPI application that serves as a data interface for querying vital signs and patient information from MongoDB.
 
-## Table of Contents
-- [Setup](#setup)
-- [Running the Application](#running-the-application)
-- [Endpoints](#endpoints)
-- [Usage](#usage)
-- [Testing with Postman](#testing-with-postman)
-- [Contributing](#contributing)
-- [License](#license)
+## Project Structure
 
-## Setup
+
+## Quick Start
 
 ### Prerequisites
 - Python 3.10
-- Docker and Docker Compose (optional, for containerization)
 - MongoDB
 
-### Installation
+### Setup
 
-1. Clone the repository:
+1. **Clone the repository:**
     ```bash
     git clone https://gitlab.com/your-username/nis-llm-data-interface.git
     cd nis-llm-data-interface
     ```
 
-2. Create a virtual environment and activate it:
+2. **Create a virtual environment and activate it:**
     ```bash
     python3.10 -m venv venv
     source venv/bin/activate
     ```
 
-3. Install the dependencies:
+3. **Install dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-4. Ensure MongoDB is running and accessible. Update the MongoDB connection details in your application if necessary.
+4. **Configure MongoDB connection in `database.py`:**
 
-## Running the Application
+5. **Run the application:**
+    ```bash
+    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ```
 
-### Using Uvicorn
+### Endpoints
 
-Run the FastAPI application using Uvicorn:
-```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+#### GET `/home`
+- **Description**: Returns a welcome message.
+- **Response**:
+    ```json
+    {
+      "message": "Welcome to the nis-llm-data-interface"
+    }
+    ```
+
+#### POST `/initial-layer`
+- **Description**: Executes complex queries to retrieve vital signs data.
+- **Request Body**:
+    ```json
+    {
+      "queries": [
+        {
+          "interface_type": "vitalsigns",
+          "patientName": "憨斑斑",
+          "retrieve": ["SYS"],
+          "conditions": {
+            "duration": 90,
+            "sortby": {"SYS
