@@ -9,7 +9,7 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
 #### POST `/initial-layer`
 - **Description**: The primary endpoint for receiving initial JSON data from the LLM.
 
-- **Request Body**: This JSON file requests the highest three systolic blood pressure (SYS) readings for 憨斑斑 within the past three months.
+- **Request Body**: 幫我回傳憨斑斑三個月內前三高的血壓 (SYS) 和當天日期。
     ```json
     {
       "queries": [
@@ -49,35 +49,37 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
 
 1. **Endpoint receives data:**
     ```python
-    from app.db.database import startup_event
-    startup_event()
+    @router.post("/initial-layer")
+    async def execute_queries(params: RequestParams):
+        try:
+            results = [DataInterfaceFactory().get_interface(q.interface_type, *parse_query(q)).execute() for q in params.queries]
+            return json.loads(json.dumps(results, default=str))
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
     ```
 
-2. **Send to factory with parameters:**
+2. **Factory distributes to interfaces:**
     ```python
-    from app.factory import DataInterfaceFactory
-
-    factory = DataInterfaceFactory()
-    interface = factory.get_interface("vitalsigns", query_dict, projection, conditions)
-    results = interface.execute()
+    class DataInterfaceFactory:
+        def get_interface(self, type, query, proj, cond):
+            interfaces = {"patient_info": FindPatientInfoInterface, "vitalsigns": FindVitalsignsInterface}
+            return interfaces.get(type, lambda *args: ValueError("Unknown type"))(query, proj, cond)
     ```
 
-3. **Factory distributes to interfaces:**
+3. **Interfaces query and get data from the database:**
     ```python
-    from app.factory import DataInterfaceFactory
-
-    factory = DataInterfaceFactory()
-    interface = factory.get_interface("vitalsigns", query_dict, projection, conditions)
-    results = interface.execute()
+    class FindVitalsignsInterface(DataInterface):
+        def execute(self):
+            patient = self.patientFullName_collection.find_one({"fullName": self.query["patientName"]})
+            if not patient: return []
+            query = {"patient": patient["patient"]}
+            if "duration" in self.conditions:
+                query["createdDate"] = {"$gte": datetime.now() - timedelta(days=self.conditions["duration"]), "$lte": datetime.now()}
+            cursor = self.vitalsigns_collection.find(query, self.projection)
+            if "sortby" in self.conditions: cursor = cursor.sort([(k, -1 if v == "desc" else 1) for k, v in self.conditions["sortby"].items()])
+            if "limit" in self.conditions: cursor = cursor.limit(self.conditions["limit"])
+            return list(cursor)
     ```
 
-4. **Interfaces begin to query and get data from the database:**
-    ```python
-    from app.factory import DataInterfaceFactory
-
-    factory = DataInterfaceFactory()
-    interface = factory.get_interface("vitalsigns", query_dict, projection, conditions)
-    results = interface.execute()
-    ```
 
 Feel free to modify and enhance this README file according to your project needs.
