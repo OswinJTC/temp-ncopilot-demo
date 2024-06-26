@@ -1,14 +1,15 @@
 # NIS LLM Data Interface
-## Quick Start
+
 JuboAgent's data interface, implemented with FastAPI, is designed for processing JSON files exported from JuboAgent's LLM. It efficiently queries specific user-requested information from MongoDB.
 
-## Endpoints
+## Quick Start
 
+### 1. Endpoints
 
 #### POST `/initial-layer`
 - **Description**: The primary endpoint for receiving initial JSON data from the LLM.
 
-- **Request Body**: This JSON file stands for, getting 憨斑斑三個月內前三高的血壓 (SYS).
+- **Request Body**: This JSON file requests the highest three systolic blood pressure (SYS) readings for 憨斑斑 within the past three months.
     ```json
     {
       "queries": [
@@ -25,6 +26,7 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
       ]
     }
     ```
+
 - **Response**:
     ```json
     [
@@ -43,32 +45,15 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
     ]
     ```
 
+### 2. Code Structure
 
-
-
-### Code Structure
-
-1. **Endiont receive data:**
+1. **Endpoint receives data:**
     ```python
     from app.db.database import startup_event
     startup_event()
     ```
 
-2. **Send to factory witht parametr**
-    ```python
-    from app.factory import DataInterfaceFactory
-
-    factory = DataInterfaceFactory()
-    interface = factory.get_interface("vitalsigns", query_dict, projection, conditions)
-    results = interface.execute()
-
-3. **Factory distribute to interfaces**
-    ```python
-    from app.db.database import startup_event
-    startup_event()
-    ```
-
-4. **Interfaces b egin to query and get data from db**
+2. **Send to factory with parameters:**
     ```python
     from app.factory import DataInterfaceFactory
 
@@ -77,4 +62,22 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
     results = interface.execute()
     ```
 
+3. **Factory distributes to interfaces:**
+    ```python
+    from app.factory import DataInterfaceFactory
 
+    factory = DataInterfaceFactory()
+    interface = factory.get_interface("vitalsigns", query_dict, projection, conditions)
+    results = interface.execute()
+    ```
+
+4. **Interfaces begin to query and get data from the database:**
+    ```python
+    from app.factory import DataInterfaceFactory
+
+    factory = DataInterfaceFactory()
+    interface = factory.get_interface("vitalsigns", query_dict, projection, conditions)
+    results = interface.execute()
+    ```
+
+Feel free to modify and enhance this README file according to your project needs.
