@@ -1,10 +1,10 @@
 # NIS LLM Data Interface
 
-JuboAgent's data interface, implemented with FastAPI, is designed for processing JSON files exported from JuboAgent's LLM. It efficiently queries specific user-requested information from MongoDB.
+JuboAgent's data interface, implemented with FastAPI, is designed for processing JSON files exported from JuboAgent's LLM. It efficiently queries specific user-requested information from MongoDB, and returns.
 
 ## Quick Start
 
-### 1. Endpoints 端點
+### 1. Endpoint 端點
 
 #### POST `/initial-layer`
 - **Description**: The primary endpoint for receiving initial JSON data from the LLM.
