@@ -2,12 +2,13 @@
 ## Quick Start
 JuboAgent's data interface, implemented with FastAPI, is designed for processing JSON files exported from JuboAgent's LLM. It efficiently queries specific user-requested information from MongoDB.
 
-### Endpoints
+## Endpoints
 
 
 #### POST `/initial-layer`
-- **Description**: The primary endpoint for receiving initial JSON data from the LLM. This JSON file stands for, getting 憨斑斑三個月內前三高的血壓 (SYS).
-- **Request Body**:
+- **Description**: The primary endpoint for receiving initial JSON data from the LLM.
+
+- **Request Body**: This JSON file stands for, getting 憨斑斑三個月內前三高的血壓 (SYS).
     ```json
     {
       "queries": [
@@ -42,7 +43,6 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
     ]
     ```
 
-This JSON file stands for, getting 憨斑斑三個月內前三高的血壓 (SYS).
 
 
 
