@@ -1,10 +1,3 @@
-# NIS LLM Data Interface
-
-## Overview
-A FastAPI application that serves as a data interface for querying vital signs and patient information from MongoDB.
-
-## Project Structure
-
 
 ## Quick Start
 
@@ -61,4 +54,59 @@ A FastAPI application that serves as a data interface for querying vital signs a
           "retrieve": ["SYS"],
           "conditions": {
             "duration": 90,
-            "sortby": {"SYS
+            "sortby": {"SYS": "descending"},
+            "limit": 3
+          }
+        },
+        {
+          "interface_type": "vitalsigns",
+          "patientName": "憨斑斑",
+          "retrieve": ["SPO2"],
+          "conditions": {
+            "duration": 90,
+            "sortby": {"SPO2": "descending"},
+            "limit": 3
+          }
+        }
+      ]
+    }
+    ```
+- **Response**:
+    ```json
+    {
+      "results": [...]
+    }
+    ```
+
+#### GET `/test-gcp-credentials`
+- **Description**: Tests GCP credentials access.
+- **Response**:
+    ```json
+    {
+      "message": "Successfully accessed secret",
+      "secret_data": "..."
+    }
+    ```
+
+### Usage
+
+1. **Initialize MongoDB Collections:**
+    ```python
+    from app.db.database import startup_event
+    startup_event()
+    ```
+
+2. **Execute Queries:**
+    ```python
+    from app.factory import DataInterfaceFactory
+
+    factory = DataInterfaceFactory()
+    interface = factory.get_interface("vitalsigns", query_dict, projection, conditions)
+    results = interface.execute()
+    ```
+
+## Contributing
+Contributions are welcome! Please fork the repository and submit a pull request for review.
+
+## License
+This project is licensed under the MIT License.
