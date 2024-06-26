@@ -13,6 +13,7 @@ def startup_event():
 
     collections['patients'] = read_only_db_develop['patients']
     collections['vitalsigns'] = read_only_db_develop['vitalsigns']
+    collections['patientFullName'] = read_only_db_develop['patientFullName']
     logging.info("Connected to MongoDB with database: release")
 
    

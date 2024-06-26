@@ -1,14 +1,16 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Dict, List, Optional
+
+class Conditions(BaseModel):
+    duration: Optional[int] = None
+    sortby: Optional[Dict[str, str]] = None
+    limit: Optional[int] = None
 
 class QueryParams(BaseModel):
     interface_type: str
-    lastName: Optional[str] = None
-    firstName: Optional[str] = None
-    variables: List[str]
-    timeframe: Optional[int] = None
-    sort_field: Optional[str] = None
-    limit: Optional[int] = None
+    patientName: str
+    retrieve: List[str]
+    conditions: Optional[Conditions] = None
 
 class RequestParams(BaseModel):
     queries: List[QueryParams]
