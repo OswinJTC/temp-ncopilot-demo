@@ -4,7 +4,7 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
 
 ## Quick Start
 
-### 1. Endpoints
+### 1. Endpoints 端點
 
 #### POST `/initial-layer`
 - **Description**: The primary endpoint for receiving initial JSON data from the LLM.
@@ -45,9 +45,9 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
     ]
     ```
 
-### 2. Code Structure
+### 2. 資料處理順序
 
-1. **Endpoint receives data:**
+1. **Endpoint 拿到資料:**
     ```python
     @router.post("/initial-layer")
     async def execute_queries(my_params: RequestParams):
@@ -64,7 +64,7 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
             raise HTTPException(status_code=500, detail=str(e))
     ```
 
-2. **Factory distributes to interfaces:**
+2. **Factory 分配應該去哪個 interface:**
     ```python
     class DataInterfaceFactory:
         def get_interface(self, interface_type: str, query: Dict, projection: Dict = None, conditions: Optional[Dict] = None):
@@ -76,7 +76,7 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
                 raise ValueError(f"Unknown interface type: {interface_type}")
     ```
 
-3. **Interfaces query and get data from the database:**
+3. **Interface 到資料庫索取對應資料:**
     ```python
     class FindVitalsignsInterface(DataInterface):
         def execute(self):  # interface 內部找尋資料過程
@@ -100,4 +100,4 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
             return [doc for doc in cursor if all(f in doc for f in self.projection.keys() if self.projection[f] == 1)]  # 回傳結果
     ```
 
-Feel free to modify and enhance this README file according to your project needs.
+此為出版 data interface 設計概念。
