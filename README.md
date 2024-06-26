@@ -50,9 +50,13 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
 1. **Endpoint receives data:**
     ```python
     @router.post("/initial-layer")
-    async def execute_queries(params: RequestParams):
+    async def execute_queries(my_params: RequestParams):
+        results = []
         try:
-            results = [DataInterfaceFactory().get_interface(q.interface_type, *parse_query(q)).execute() for q in params.queries]
+            for query in my_params.queries:
+                query_dict, projection, conditions = parse_query(query)
+                interface = DataInterfaceFactory().get_interface(query.interface_type, query_dict, projection, conditions)
+                results.extend(interface.execute())
             return json.loads(json.dumps(results, default=str))
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
@@ -61,9 +65,13 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
 2. **Factory distributes to interfaces:**
     ```python
     class DataInterfaceFactory:
-        def get_interface(self, type, query, proj, cond):
-            interfaces = {"patient_info": FindPatientInfoInterface, "vitalsigns": FindVitalsignsInterface}
-            return interfaces.get(type, lambda *args: ValueError("Unknown type"))(query, proj, cond)
+        def get_interface(self, interface_type: str, query: Dict, projection: Dict = None, conditions: Optional[Dict] = None):
+            if interface_type == "patient_info":
+                return FindPatientInfoInterface(query, projection)
+            elif interface_type == "vitalsigns":
+                return FindVitalsignsInterface(query, projection, conditions)
+            else:
+                raise ValueError(f"Unknown interface type: {interface_type}")
     ```
 
 3. **Interfaces query and get data from the database:**
@@ -71,14 +79,20 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
     class FindVitalsignsInterface(DataInterface):
         def execute(self):
             patient = self.patientFullName_collection.find_one({"fullName": self.query["patientName"]})
-            if not patient: return []
+            if not patient:
+                return []
             query = {"patient": patient["patient"]}
-            if "duration" in self.conditions:
-                query["createdDate"] = {"$gte": datetime.now() - timedelta(days=self.conditions["duration"]), "$lte": datetime.now()}
+            if self.conditions and self.conditions.get("duration"):
+                end_date = datetime.now()
+                start_date = end_date - timedelta(days=int(self.conditions["duration"]))
+                query["createdDate"] = {"$gte": start_date, "$lte": end_date}
             cursor = self.vitalsigns_collection.find(query, self.projection)
-            if "sortby" in self.conditions: cursor = cursor.sort([(k, -1 if v == "desc" else 1) for k, v in self.conditions["sortby"].items()])
-            if "limit" in self.conditions: cursor = cursor.limit(self.conditions["limit"])
-            return list(cursor)
+            if self.conditions and self.conditions.get("sortby"):
+                sort_fields = [(k, -1 if v.lower() == "descending" else 1) for k, v in self.conditions["sortby"].items()]
+                cursor = cursor.sort(sort_fields)
+            if self.conditions and self.conditions.get("limit"):
+                cursor = cursor.limit(int(self.conditions["limit"]))
+            return [doc for doc in cursor if all(f in doc for f in self.projection.keys() if self.projection[f] == 1)]
     ```
 
 
