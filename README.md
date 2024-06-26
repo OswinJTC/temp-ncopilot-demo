@@ -1,49 +1,12 @@
-
+# NIS LLM Data Interface
 ## Quick Start
-
-### Prerequisites
-- Python 3.10
-- MongoDB
-
-### Setup
-
-1. **Clone the repository:**
-    ```bash
-    git clone https://gitlab.com/your-username/nis-llm-data-interface.git
-    cd nis-llm-data-interface
-    ```
-
-2. **Create a virtual environment and activate it:**
-    ```bash
-    python3.10 -m venv venv
-    source venv/bin/activate
-    ```
-
-3. **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4. **Configure MongoDB connection in `database.py`:**
-
-5. **Run the application:**
-    ```bash
-    uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
-    ```
+JuboAgent's data interface, implemented with FastAPI, is designed for processing JSON files exported from JuboAgent's LLM. It efficiently queries specific user-requested information from MongoDB.
 
 ### Endpoints
 
-#### GET `/home`
-- **Description**: Returns a welcome message.
-- **Response**:
-    ```json
-    {
-      "message": "Welcome to the nis-llm-data-interface"
-    }
-    ```
 
 #### POST `/initial-layer`
-- **Description**: Executes complex queries to retrieve vital signs data.
+- **Description**: The primary endpoint for receiving initial JSON data from the LLM. This JSON file stands for, getting 憨斑斑三個月內前三高的血壓 (SYS).
 - **Request Body**:
     ```json
     {
@@ -51,20 +14,10 @@
         {
           "interface_type": "vitalsigns",
           "patientName": "憨斑斑",
-          "retrieve": ["SYS"],
+          "retrieve": ["SYS", "createdDate"],
           "conditions": {
             "duration": 90,
             "sortby": {"SYS": "descending"},
-            "limit": 3
-          }
-        },
-        {
-          "interface_type": "vitalsigns",
-          "patientName": "憨斑斑",
-          "retrieve": ["SPO2"],
-          "conditions": {
-            "duration": 90,
-            "sortby": {"SPO2": "descending"},
             "limit": 3
           }
         }
@@ -73,30 +26,49 @@
     ```
 - **Response**:
     ```json
-    {
-      "results": [...]
-    }
+    [
+      {
+        "SYS": 140,
+        "createdDate": "2024-05-02T09:02:10Z"
+      },
+      {
+        "SYS": 138,
+        "createdDate": "2024-04-14T10:04:34Z"
+      },
+      {
+        "SYS": 131,
+        "createdDate": "2024-06-22T07:31:25Z"
+      }
+    ]
     ```
 
-#### GET `/test-gcp-credentials`
-- **Description**: Tests GCP credentials access.
-- **Response**:
-    ```json
-    {
-      "message": "Successfully accessed secret",
-      "secret_data": "..."
-    }
-    ```
+This JSON file stands for, getting 憨斑斑三個月內前三高的血壓 (SYS).
 
-### Usage
 
-1. **Initialize MongoDB Collections:**
+
+### Code Structure
+
+1. **Endiont receive data:**
     ```python
     from app.db.database import startup_event
     startup_event()
     ```
 
-2. **Execute Queries:**
+2. **Send to factory witht parametr**
+    ```python
+    from app.factory import DataInterfaceFactory
+
+    factory = DataInterfaceFactory()
+    interface = factory.get_interface("vitalsigns", query_dict, projection, conditions)
+    results = interface.execute()
+
+3. **Factory distribute to interfaces**
+    ```python
+    from app.db.database import startup_event
+    startup_event()
+    ```
+
+4. **Interfaces b egin to query and get data from db**
     ```python
     from app.factory import DataInterfaceFactory
 
@@ -105,8 +77,4 @@
     results = interface.execute()
     ```
 
-## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request for review.
 
-## License
-This project is licensed under the MIT License.
