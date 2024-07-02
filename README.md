@@ -104,3 +104,28 @@ JuboAgent's data interface, implemented with FastAPI, is designed for processing
 
 ## 以上為 JuboAgent data interface 初版設計概念，未完待續～～
 
+## 未來規劃
+
+### 1. Using Auth0 for User Management with RBAC
+
+Leveraging Auth0 as the primary user management solution, integrating Role-Based Access Control (RBAC) for enhanced security and user permissions management.
+
+#### Key Features:
+
+- **Authentication**: Users can securely log in using Auth0 credentials.
+- **Authorization**: RBAC ensures that users have appropriate access based on predefined roles.(Admin, Organization, Patient, Guest)
+- **User Management**: Administrators can manage user accounts and roles through the Auth0 dashboard.
+- **Secure APIs**: Integration with Auth0 ensures secure access to application APIs.
+
+### 2. Retrieving Data from Database with Source Website Links
+
+In addition to retrieving data from the database, this project also includes relevant website links that serve as the sources of the retrieved data.
+
+#### Implementation Details:
+
+- **Data Retrieval**: When querying data from the database, the application fetches associated website links.
+- **Presentation**: Retrieved data and links are presented together in the application’s user interface or API responses.
+- **User Benefits**: Users can access the source websites for verification or additional context related to the retrieved data.
+
+ 
+
