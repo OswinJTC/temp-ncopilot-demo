@@ -11,4 +11,3 @@ class DataInterfaceFactory:
             return FindVitalsignsInterface(query, projection, conditions)
         else:
             raise ValueError(f"Unknown interface type: {interface_type}")
-        

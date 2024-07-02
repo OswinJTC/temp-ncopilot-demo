@@ -1,8 +1,13 @@
-from fastapi import APIRouter, HTTPException
-from app.models.request_models import RequestParams
+# app/routers/api.py
+from fastapi import APIRouter, HTTPException, Depends
+from app.schemas.request_models import RequestParams
 from app.factory import DataInterfaceFactory
+from app.db.mongo_database import get_mongo_collections
+from app.db.postgres_database import get_db_connector
 import json
-import logging
+import logging 
+from sqlalchemy.orm import Session
+from app.auth import require_permission, TokenData
 
 router = APIRouter()
 
@@ -21,8 +26,10 @@ def parse_query(query):
     }
 
     return query_dict, projection, conditions
+
 @router.post("/initial-layer")
-async def execute_queries(my_params: RequestParams):
+async def execute_queries(my_params: RequestParams, token: TokenData = Depends(require_permission("hit:primary-endpoint"))):
+    results = []
     results = []
     try:
         for query in my_params.queries:
@@ -48,4 +55,3 @@ async def test_gcp_credentials():
         return {"message": "Successfully accessed secret", "secret_data": secret_data}
     except Exception as e:
         return {"error": str(e)}
- 

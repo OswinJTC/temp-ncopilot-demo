@@ -1,6 +1,6 @@
 import logging
 from .base import DataInterface
-from app.db.database import get_mongo_collections
+from app.db.mongo_database import get_mongo_collections
 
 class FindPatientInfoInterface(DataInterface):
     def __init__(self, query, projection):

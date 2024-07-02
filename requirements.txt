@@ -1,0 +1,10 @@
+fastapi==0.95.2
+uvicorn==0.21.1
+sqlalchemy==1.4.39
+pydantic==1.10.7
+psycopg2-binary==2.9.3
+pymongo==4.1.1
+python-dotenv==0.20.0
+requests==2.31.0
+auth0-python==4.7.1
+python-jose==3.3.0
