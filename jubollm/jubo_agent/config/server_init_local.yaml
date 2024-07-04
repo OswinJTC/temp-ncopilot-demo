@@ -1,0 +1,9 @@
+service_name: 'ai-llm-agent'
+llm_source: 'local'
+endpoint_url: "http://127.0.0.1:5566/"
+max_new_tokens: 512
+temperature: 0.5
+top_k: 50
+top_p: 0.95
+repetition_penalty: 1.05
+huggingfacehub_api_token: "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"

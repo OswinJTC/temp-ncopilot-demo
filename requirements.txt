@@ -8,3 +8,6 @@ python-dotenv==0.20.0
 requests==2.31.0
 auth0-python==4.7.1
 python-jose==3.3.0
+langchain-core==0.1.9
+langchain-community==0.0.12
+PyYAML==6.0
