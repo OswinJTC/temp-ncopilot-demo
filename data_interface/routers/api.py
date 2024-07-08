@@ -1,13 +1,13 @@
 # app/routers/api.py
 from fastapi import APIRouter, HTTPException, Depends
-from app.schemas.request_models import RequestParams
-from app.factory import DataInterfaceFactory
-from app.db.mongo_database import get_mongo_collections
-from app.db.postgres_database import get_db_connector
+from data_interface.schemas.request_models import RequestParams
+from data_interface.factory import DataInterfaceFactory
+from data_interface.db.mongo_database import get_mongo_collections
+from data_interface.db.postgres_database import get_db_connector
 import json
 import logging 
 from sqlalchemy.orm import Session
-from app.auth import require_permission, TokenData
+from data_interface.auth import require_permission, TokenData
 
 router = APIRouter()
 

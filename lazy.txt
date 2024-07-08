@@ -2,7 +2,7 @@ export GOOGLE_APPLICATION_CREDENTIALS="$HOME/Desktop/Jubo 智齡科技/key/sa-os
 echo $GOOGLE_APPLICATION_CREDENTIALS
 uvicorn app.main:app --host 0.0.0.0 --port 8000  
 
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload 
 
 
 export PYTHONPATH=$(pwd)
@@ -15,4 +15,4 @@ export PYTHONPATH=$(pwd)
 
 export GOOGLE_APPLICATION_CREDENTIALS="$HOME/Desktop/Jubo 智齡科技/key/sa-oswinchen1.json"
 echo $GOOGLE_APPLICATION_CREDENTIALS
-uvicorn jubollm.jubo_agent.app.server.main:app --host 0.0.0.0 --port 8002
+uvicorn llm_agent.llm:app --host 0.0.0.0 --port 8002

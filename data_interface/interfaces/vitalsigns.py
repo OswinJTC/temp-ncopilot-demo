@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from bson import ObjectId, errors
-from app.db.mongo_database import get_mongo_collections
-from app.db.postgres_database import get_db_connector
+from data_interface.db.mongo_database import get_mongo_collections
+from data_interface.db.postgres_database import get_db_connector
 import logging
 
 class FindVitalsignsInterface:

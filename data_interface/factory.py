@@ -1,7 +1,7 @@
 from typing import Dict, Optional
-from app.interfaces.patient_info import FindPatientInfoInterface
-from app.interfaces.vitalsigns import FindVitalsignsInterface
-from app.interfaces.base import DataInterface
+from data_interface.interfaces.patient_info import FindPatientInfoInterface
+from data_interface.interfaces.vitalsigns import FindVitalsignsInterface
+from data_interface.interfaces.base import DataInterface
 
 class DataInterfaceFactory:
     def get_interface(self, interface_type: str, query: Dict, projection: Dict = None, conditions: Optional[Dict] = None) -> DataInterface:

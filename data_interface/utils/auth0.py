@@ -1,7 +1,7 @@
 # app/utils/auth0.py
 
 import requests
-from app.settings import settings
+from data_interface.settings import settings
 
 AUTH0_DOMAIN = settings.auth0_domain
 AUTH0_CLIENT_ID = settings.auth0_client_id

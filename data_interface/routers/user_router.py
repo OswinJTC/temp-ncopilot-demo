@@ -2,9 +2,9 @@
 
 import logging
 from fastapi import APIRouter, HTTPException
-from app.schemas import user as schemas_user
-from app.crud import user as crud_user
-from app.utils.auth0 import create_auth0_user, assign_auth0_role
+from data_interface.schemas import user as schemas_user
+from data_interface.crud import user as crud_user
+from data_interface.utils.auth0 import create_auth0_user, assign_auth0_role
 
 router = APIRouter()
 

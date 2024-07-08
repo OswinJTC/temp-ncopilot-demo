@@ -1,8 +1,8 @@
 from fastapi import FastAPI
-from app.routers import api, user_router
-from app.db.postgres_database import startup_postgres_event
-from app.db.mongo_database import startup_mongo_event
-from app.settings import settings  # Update import statement
+from data_interface.routers import api, user_router
+from data_interface.db.postgres_database import startup_postgres_event
+from data_interface.db.mongo_database import startup_mongo_event
+from data_interface.settings import settings  # Update import statement
 
 app = FastAPI()
 
