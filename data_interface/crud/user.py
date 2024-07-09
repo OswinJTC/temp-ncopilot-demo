@@ -1,7 +1,7 @@
 # app/crud/user.py
 
 from data_interface.schemas.user import UserCreate, User
-from data_interface.db.postgres_database import get_db_connector
+from postgres_database import get_db_connector
 
 def create_user(user: UserCreate, role: str) -> User:
     db_connector = get_db_connector()
