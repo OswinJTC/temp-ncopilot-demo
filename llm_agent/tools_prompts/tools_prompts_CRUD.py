@@ -39,3 +39,4 @@ def get_base_prompt(query_type: str):
     except Exception as e:
         logging.error(f"Error fetching base prompt: {e}")
         return None
+

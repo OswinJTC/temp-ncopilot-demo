@@ -3,7 +3,7 @@ import logging
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from llm_agent.base_service import BaseService
-from data_interface.routers.api import execute_queries
+from data_interface.routers.interface_primary import execute_queries
 
 INIT_SYSTEM_PROMPT = "你是一個人工智慧助理。請依照使用者提出的需求輸出對應的結果。"
 

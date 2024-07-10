@@ -7,34 +7,40 @@ import logging
 from postgres_database import startup_postgres_event
 from data_interface.db.mongo_database import startup_mongo_event
 from llm_agent.llm import process_input_text
+from data_interface.routers import admin, guest, test
 
-# Initialize the FastAPI app
 app = FastAPI()
 
 class InputData(BaseModel):
     input_text: str
 
-# CORS configuration
+# Allow CORS for specific origins
 origins = [
-    "http://localhost:3000",  # Frontend URL
+    "http://localhost:3000",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins,  # Allow only specified origins
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["*"],  # Allow all methods
+    allow_headers=["*"],  # Allow all headers
 )
+
 
 # Initialize the databases
 startup_postgres_event()
 startup_mongo_event()
 
-@app.post("/main-input-processing")
+app.include_router(admin.router)
+app.include_router(guest.router)
+app.include_router(test.router)
+
+@app.post("/main-processing")
 def agent_main(input_data: InputData):
     try:
         response = process_input_text(input_data.input_text)
+        
         return response
     except Exception as e:
         logging.error(f"Error: {e}")
