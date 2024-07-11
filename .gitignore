@@ -47,5 +47,6 @@ ipython_config.py
 # Pyre type checker
 .pyre/
 
-# FastAPI specific
-lazy.text
+# Ignore run.sh and lazy.txt
+run.sh
+lazy.txt

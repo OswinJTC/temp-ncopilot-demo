@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import logging
 
-from postgres_database import startup_postgres_event
+from server.postgres_database import startup_postgres_event
 from data_interface.db.mongo_database import startup_mongo_event
 from llm_agent.llm import process_input_text
 from data_interface.routers import RBAC_test

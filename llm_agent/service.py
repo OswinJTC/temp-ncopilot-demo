@@ -55,11 +55,7 @@ class Service(BaseService):
 
 
         raw_json_output = self.parse_response(summary.strip())
-         
 
-        #raise Exception(f"先停 response")
-
-     
         results = execute_query(raw_json_output)
         
         return results
