@@ -4,6 +4,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from llm_agent.base_service import BaseService
 from data_interface.routers.interface_primary import execute_query
+from auth0.models import TokenData
 
 INIT_SYSTEM_PROMPT = "你是一個人工智慧助理。請依照使用者提出的需求輸出對應的結果。"
 
@@ -11,7 +12,7 @@ def classify_query(query):
     if any(keyword in query for keyword in ["血壓", "脈搏", "體溫", "血氧"]):
         return "vitalsigns"
     elif any(keyword in query for keyword in ["預約", "會議", "安排"]):
-        return "appointments"
+        return "patients_info"
     else:
         return "default"
 
@@ -43,19 +44,20 @@ class Service(BaseService):
 
      
 
-    def generate(self, tools: str, user_input: str, base_prompt: str) -> dict:
+    def generate(self, tools: str, user_input: str, base_prompt: str, token_data: TokenData) -> dict:
         formatted_prompt = self.build_prompt(tools, user_input, base_prompt)
 
-        logging.debug(f"餵給 LLM 的Formatted Prompt: {formatted_prompt}")
+        #logging.debug(f"餵給 LLM 的Formatted Prompt: {formatted_prompt}")
 
         chain = self.llm | StrOutputParser()
         summary = chain.invoke(formatted_prompt) #最希望這邊給出來就是完美的
 
-        logging.debug(f"就是這個啦 Raw response from LLM: {summary}")
+        #logging.debug(f"就是這個啦 Raw response from LLM: {summary}")
 
 
         raw_json_output = self.parse_response(summary.strip())
 
-        results = execute_query(raw_json_output)
+
+        results = execute_query(raw_json_output, token_data)
         
         return results

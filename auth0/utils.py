@@ -69,3 +69,14 @@ def get_user_roles(user_id, access_token):
     response = requests.get(url, headers=headers)
     response.raise_for_status()
     return response.json()
+
+
+def get_user_metadata(user_id, access_token):
+    url = f"https://{AUTH0_DOMAIN}/api/v2/users/{user_id}"
+    headers = {
+        'Authorization': f'Bearer {access_token}'
+    }
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    user_info = response.json()
+    return user_info.get("app_metadata", {})
