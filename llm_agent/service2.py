@@ -15,15 +15,15 @@ class Service2(BaseService):
     def __init__(self, llm_config):
         super().__init__(**llm_config)
 
-    def build_prompt(self, tool1: str, input_text: str, db_output: str, BASIC_PROMPT1: str, link: str) -> str:
+    def build_prompt(self, tool2: str, input_text: str, db_output: str, BASIC_PROMPT1: str, link: str) -> str:
         template = ChatPromptTemplate.from_template(
             INIT_SYSTEM_PROMPT + "\n" + BASIC_PROMPT1
         )
-        formatted_prompt = template.format_prompt(tool1=tool1, user_input=input_text, db_output=db_output, link=link)
+        formatted_prompt = template.format_prompt(tool2=tool2, user_input=input_text, db_output=db_output, link=link)
         print(formatted_prompt.to_string())
         return formatted_prompt.to_string()
 
-    def generate(self, tool1: str, BASIC_PROMPT1: str, request: RequestBody):
+    def generate(self, tool2: str, BASIC_PROMPT1: str, request: RequestBody):
         try:
 
             data = json.loads(request)
@@ -38,7 +38,7 @@ class Service2(BaseService):
             db_output_str = json.dumps(db_output)
 
           
-            formatted_prompt = self.build_prompt(tool1, input_text, db_output_str, BASIC_PROMPT1, link)
+            formatted_prompt = self.build_prompt(tool2, input_text, db_output_str, BASIC_PROMPT1, link)
             chain = self.llm | StrOutputParser()
             summary = chain.invoke(formatted_prompt).strip()
 

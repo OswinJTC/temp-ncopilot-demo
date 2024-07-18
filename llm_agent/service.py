@@ -11,7 +11,7 @@ INIT_SYSTEM_PROMPT = "你是一個人工智慧助理。請依照使用者提出�
 def classify_query(query):
     if any(keyword in query for keyword in ["血壓", "脈搏", "體溫", "血氧"]):
         return "vitalsigns"
-    elif any(keyword in query for keyword in ["預約", "會議", "安排"]):
+    elif any(keyword in query for keyword in ["生日", "身高", "體重","醫院","血型"]):
         return "patients_info"
     else:
         return "default"

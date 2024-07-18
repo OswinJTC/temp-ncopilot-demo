@@ -52,6 +52,8 @@ class FindVitalsignsInterface:
 
             logging.info(self.token_data)
 
+            
+
             try:
                 # 檢查機構
                 check_organization_permission(self.token_data, patient_organization_str)
@@ -107,6 +109,7 @@ class FindVitalsignsInterface:
             else:
                 link_str = "https://smc.jubo.health/VitalSign/patient/" + patient_id_str
                 link = {"link":link_str}
+
 
             logging.info(f"Link: {link}")
             results.append(link)

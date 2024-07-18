@@ -57,7 +57,7 @@ def agent_main(input_data: InputData, token_data: TokenData = Depends(get_token_
         request_body = RequestBody(input_text=input_data.input_text, dboutput=db_output_obj, link=temp_link["link"])
         formatted_request_body = json.dumps(request_body.dict(), indent=2, ensure_ascii=False)
 
-        response2 = convert_to_nl(formatted_request_body)
+        response2 = convert_to_nl(input_data.input_text, formatted_request_body)
 
         print(f"快結束了")
         print(response2)
