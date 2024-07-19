@@ -8,7 +8,7 @@ from auth0.models import TokenData
 
 INIT_SYSTEM_PROMPT = "你是一個人工智慧助理。請依照使用者提出的需求輸出對應的結果。"
 
-def classify_query(query):
+def classify_query(query):#這邊長久之計不能這樣寫
     if any(keyword in query for keyword in ["血壓", "脈搏", "體溫", "血氧"]):
         return "vitalsigns"
     elif any(keyword in query for keyword in ["生日", "身高", "體重","醫院","血型"]):

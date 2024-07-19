@@ -77,6 +77,11 @@ class FindPatientInfoInterface(BaseInterface):
             result = []
             result.append(self.patient_info_collection.find_one(patients_info_query, self.projection))
 
+            link_str = "https://smc.jubo.health/MyPatient/" + patient_id_str
+            link = {"link":link_str}
+            logging.info(f"Link: {link}")
+            result.append(link)
+
             return result
 
         except HTTPException as e:

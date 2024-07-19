@@ -42,10 +42,7 @@ app.include_router(RBAC_test.router)
 def agent_main(input_data: InputData, token_data: TokenData = Depends(get_token_data)):
     try:
         response1 = process_input_text(input_data.input_text, token_data)
-
  
-        print(response1)
-
         #取出連結，分頭傳遞
         temp_link = next((item for item in response1 if "link" in item), None)
         if temp_link:
@@ -58,9 +55,6 @@ def agent_main(input_data: InputData, token_data: TokenData = Depends(get_token_
         formatted_request_body = json.dumps(request_body.dict(), indent=2, ensure_ascii=False)
 
         response2 = convert_to_nl(input_data.input_text, formatted_request_body)
-
-        print(f"快結束了")
-        print(response2)
 
         return response2
     
