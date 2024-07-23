@@ -47,6 +47,6 @@ ipython_config.py
 # Pyre type checker
 .pyre/
 
-# Ignore run.sh and lazy.txt
+# Ignore run.sh and lazy.txt !!
 run.sh
 lazy.txt
