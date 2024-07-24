@@ -73,7 +73,7 @@ JuboAgent 的後端, 使用 Python FastAPI 框架. 其運作順序如下： LLM 
   
       "你好，憨斑斑三個月內前三高的血壓是 120, 100.2 和 93.4～謝謝！"
  
-詳細程式碼解說：[點我查看](https://gitlab.smart-aging.tech/ds/infrastructure/jubo-nis-llm-data-interface/-/blob/add-official-auth/docs/code_explain) ～
+詳細程式碼解說：[點我查看](https://gitlab.smart-aging.tech/ds/infrastructure/jubo-nis-llm-data-interface/-/blob/add-official-auth/docs/code_explain.md) ～
 ##
 
  
