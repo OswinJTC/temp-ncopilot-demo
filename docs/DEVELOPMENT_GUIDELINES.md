@@ -15,6 +15,8 @@
 
 1. **一句人話進來@app.post("/main-processing") （不需任何動作👍👍👍）** 
 
+<br>
+
 
 2. **到 classify_query 加一個新的 interface type （現在設計就是先這樣）**
      
@@ -35,6 +37,7 @@
         return "fall_events"
     ```
 
+<br>
 
 3. **到 Postgres 的 llm_base_prompts 跟 llm_tools 加入此 usecase 自己的 prompts & tools**
 
@@ -72,6 +75,8 @@ llm_tools
 }
 ```
 
+<br>
+
 4. **到 factory.py 新增一個新的 interface**
 
 ```python
@@ -91,6 +96,8 @@ llm_tools
             return FindFall_eventsInterface(query, projection, conditions, token_data)
 ```
      
+<br>
+
 5. **開一個新的 interface**
 
 ```python
@@ -106,6 +113,8 @@ llm_tools
     def execute(self):
     ......#下面自行定義
 ```
+
+<br>
 
 6. **記得在 interface 裡設定專屬的 RBAC**
 
@@ -124,10 +133,13 @@ llm_tools
         else:
             logging.error(f"Unexpected error: {e.status_code}")
     ```
+<br>
 
 7. **最後到 Postgres 的 llm_base_prompts_2 跟 llm_tools_2 加入此 usecase 自己的 prompts & tools**
 
 同 3
+
+<br>
 
 ## 常見問題
 
