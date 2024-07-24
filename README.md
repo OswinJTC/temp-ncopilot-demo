@@ -23,7 +23,7 @@ JuboAgent 的後端, 使用 Python FastAPI 框架. 其運作順序如下： LLM 
 #### def `execute_query(...):`
  
 
-- **Request Body （步驟1 所得到）**: 
+- **Request Body （步驟1 完成後所得到）**: 
     ```json
     {
       "queries": [
@@ -47,7 +47,7 @@ JuboAgent 的後端, 使用 Python FastAPI 框架. 其運作順序如下： LLM 
 
 #### def `Service2(...):`
 
-- **Request Body（步驟2 所得到）**: 
+- **Request Body（步驟2 完成後所得到）**: 
     ```json
     {
       "input_text": "幫我回傳憨斑斑三個月內前三高的血壓 (SYS) 。",
