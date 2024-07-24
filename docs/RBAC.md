@@ -8,7 +8,6 @@ Data Interface 抓取資料時，必須確認使用者的身份和權限。否�
 
 我們使用 check_organization_permission 函式，驗證使用者是否用有權限的機構。
 
-### Code Snippet
 ```python
 def check_organization_permission(token_data: TokenData, patient_organization_str: str):
     
@@ -22,12 +21,11 @@ def check_organization_permission(token_data: TokenData, patient_organization_st
     logging.info(f"給過 機構存取～: {user_organization}")
 ```
 
-
     
 ## 2. check_organization_permission
 
 我們使用 check_patient_id_permission 函式，驗證使用者是否是病患的家屬。
-### Code Snippet
+
 ```python
 def check_patient_id_permission(token_data: TokenData, patient_id_str: str):
     if not token_data or not token_data.app_metadata:
