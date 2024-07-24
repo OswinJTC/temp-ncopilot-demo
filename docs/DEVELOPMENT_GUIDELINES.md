@@ -7,8 +7,12 @@
 ## 開發指引
 
 現在系統大概的模型出來了。往後的發展會建立在
+<br>
 (1) interface 的廣泛拓展
+<br>
 (2) 確保 LLM 的 prompts 跟 tools 是夠好的
+
+<br>
 
 已經有 vitalsigns 跟 patient_info 兩個 interfaces 。
 現在就假設我們想新增一個全新的 interface 叫做 "fall_events"。用來查詢患者的跌倒紀錄 ⋯⋯
