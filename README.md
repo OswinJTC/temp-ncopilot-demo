@@ -76,6 +76,17 @@ JuboAgent 的後端, 使用 Python FastAPI 框架. 其運作順序如下： LLM 
 程式碼詳細描述請見 [doc](https://gitlab.smart-aging.tech/ds/infrastructure/jubo-nis-llm-data-interface/-/tree/add-official-auth/docs) ～
 ##
 
+# Code Structure
+
+## engine
+
+- Build up pipeline for main task, like "training" or "inference" an image classification model.
+- Compose objects which are built from each builder and need to be executed by config easily.
+
+## builder
+
+- Builder used to declare objects and check function's input/output.
+- Each object built by the builder has the same interface to use, like `model_object.fo
  
 <br>
 
