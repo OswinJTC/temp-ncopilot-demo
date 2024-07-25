@@ -1,10 +1,14 @@
- # NIS LLM Data Interface
+ # N-Copilot Backend
 
 JuboAgent 的後端, 使用 Python FastAPI 框架. 其運作順序如下： LLM 根據 NL 生成一個 JSON 查詢格式 -> Data Interface 根據該 JSON 到資料庫拿資料 -> LLM 將得到的資料翻譯回自然語言。
 
-基於這個設計理念，後續的開發可以按照 docs 裡 md 的步驟進行～
+基於這個設計理念，後續的開發可以按照 docs 裡 md 的步驟進行：[後續開發～點我](https://gitlab.smart-aging.tech/ds/infrastructure/jubo-nis-llm-data-interface/-/blob/add-official-auth/docs/DEVELOPMENT_GUIDELINES.md)
 
 ## Quick Start （共三個步驟）
+
+
+### Setup~~
+#### blalahalhlah
 
 
 ### 1. 第一個 LLM （一段話 -> JSON）
@@ -40,7 +44,7 @@ JuboAgent 的後端, 使用 Python FastAPI 框架. 其運作順序如下： LLM 
       ]
     }
     ```
-- **這邊涉及一大重點，抓資料前的權限管理 (RBAC)**: [點我看詳細作法](https://gitlab.smart-aging.tech/ds/infrastructure/jubo-nis-llm-data-interface/-/blob/add-official-auth/docs/RBAC.md) 
+- **Re**: 
 
 <br>
 
@@ -73,8 +77,22 @@ JuboAgent 的後端, 使用 Python FastAPI 框架. 其運作順序如下： LLM 
   
       "你好，憨斑斑三個月內前三高的血壓是 120, 100.2 和 93.4～謝謝！"
  
-程式碼詳細描述請見 [doc](https://gitlab.smart-aging.tech/ds/infrastructure/jubo-nis-llm-data-interface/-/tree/add-official-auth/docs) ～
+詳細程式碼解說：[點我查看](https://gitlab.smart-aging.tech/ds/infrastructure/jubo-nis-llm-data-interface/-/blob/add-official-auth/docs/code_explain.md) ～
 ##
+
+ 
+<br>
+
+#### 未來規劃
+
+#### 1. DB version control
+#### 2. LLM tuning
+#### 3. Larger scaling
+
+ 
+ 
+ 
+ 
 
 # Code Structure
 
