@@ -8,7 +8,7 @@ JuboAgent 的後端, 使用 Python FastAPI 框架. 其運作順序如下： LLM 
 
 
 ### Setup~~
-#### blalahalhlah
+#### langchain 版本要是 x.x.x
 
 
 ### 1. 第一個 LLM （一段話 -> JSON）
